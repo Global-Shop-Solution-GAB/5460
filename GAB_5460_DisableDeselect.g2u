@@ -1,0 +1,14 @@
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+	'Disable Deselect Button
+	'If user is in INVOICE Group Security the button will be enabled
+	
+	V.Local.bGroup.Declare
+	
+	F.Global.Security.IsInGroup(V.Caller.User,"INVOICE",V.Caller.CompanyCode,V.Local.bGroup)
+	F.Intrinsic.Control.If(V.Local.bGroup,=,False)
+		F.Intrinsic.UI.ChangeCallerProperty(V.Passed.000096,"LOCK",1)
+	F.Intrinsic.Control.EndIf
+Program.Sub.Main.End
